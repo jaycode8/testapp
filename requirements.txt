@@ -7,7 +7,7 @@ djangorestframework==3.14.0
 python-dotenv==1.0.1
 mysqlclient==2.2.4
 dj-database-url==2.1.0
-pymysql==1.1.0 
+PyMySQL==1.1.0
 pytz==2024.1
 six==1.16.0
 sqlparse==0.4.4
