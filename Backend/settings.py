@@ -14,6 +14,7 @@ from pathlib import Path
 from django.conf.global_settings import AUTH_USER_MODEL, MEDIA_ROOT, MEDIA_URL
 import os
 from dotenv import load_dotenv
+import dj_database_url
 
 import cloudinary
 import cloudinary.uploader
@@ -89,13 +90,18 @@ WSGI_APPLICATION = "Backend.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": os.getenv("DB"),
-        "USER": os.getenv("DB_USER"),
-        "PASSWORD": os.getenv("PASSWORD"),
-        "HOST": os.getenv("HOST"),
-        "PORT": os.getenv("DB_PORT")
+        #"NAME": os.getenv("DB"),
+        #"USER": os.getenv("DB_USER"),
+        #"PASSWORD": os.getenv("PASSWORD"),
+        #"HOST": os.getenv("HOST"),
+        #"PORT": os.getenv("DB_PORT")
     }
 }
+
+DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+DATABASES['default']['OPTIONS']['charset'] = 'utf8mb4'
+del DATABASES['default']['OPTIONS']['sslmode'] 
+DATABASES['default']['OPTIONS']['ssl'] =  {'ca': os.environ.get('MYSQL_ATTR_SSL_CA')}
 
 
 # Password validation
